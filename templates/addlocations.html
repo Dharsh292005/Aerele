@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<form method="POST"action="/addlocation">
+    <h2>Add Location</h2>
+    <label>ID:</label>
+    <input type="number"name="location_id"required><br>
+    <br>
+    <label>Name:</label>
+    <input type="text"name="location_name"required><br>
+    <br>
+    <button type="submit">Add</button>
+   
+</form>
+<br>
+<h2>Location List</h2>
+<table border="1"cellpadding="5"cellspacing="0">
+    <thead>
+        <tr>
+            <th>Location ID</th>
+            <th>Location Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for l in locations %}
+        <tr>
+            <td>{{l[0]}}</td>
+            <td>{{l[1]}}</td>
+            <td>
+                <a href="{{url_for('editlocation',id=l[0])}}">Edit</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

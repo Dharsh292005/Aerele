@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<form method="POST"action="{{url_for('addproduct')}}">
+    <h2>Add Product</h2>
+    <label>ID:</label>
+    <input type="number"name="product_id"required><br>
+    <br>
+    <label>Name:</label>
+    <input type="text"name="product_name"required><br>
+    <br>
+    <button type="submit">Add</button>
+</form>
+
+<h2>Product List</h2>
+<table border="1"cellpadding="5"cellspacing="0">
+    <thead>
+        <tr>
+            <th>Product ID</th>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for p in products %}
+        <tr>
+            <td>{{p[0]}}</td>
+            <td>{{p[1]}}</td>
+            <td>
+                <a href="{{url_for('editproduct',id=p[0])}}">Edit</a> 
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

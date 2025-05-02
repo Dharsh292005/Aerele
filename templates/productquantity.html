@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<head>
+    <title>Product Quantities</title>
+</head>
+<body>
+    <h2>Product Quantities at Each Location</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Location</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in report %}
+            <tr>
+                <td>{{row.product}}</td>
+                <td>{{row.location}}</td>
+                <td>{{row.qty}}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="3">No data available.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+{% endblock %}

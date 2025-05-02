@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<form method="POST">
+    <h2>Edit Location</h2>
+    Name:<input type="text"name="location_name"value="{{location[1]}}"required>
+    <button type="submit">Update</button>
+</form>
+{% endblock %}

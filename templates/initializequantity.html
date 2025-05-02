@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+<head>
+    <title>Initialize Quantity</title>
+</head>
+<body>
+<div>
+    
+    <form method="POST">
+        <h2>Initialize Product Quantity at Location</h2>
+        
+        
+        <div>
+            <label for="product_id">Product</label>
+            {{form.product_id()}}
+            {% if form.product_id.errors %}
+                <div>{{form.product_id.errors[0]}}</div>
+            {% endif %}
+        </div>
+        <br>
+        <div>
+            <label for="location_id">Location</label>
+            {{form.location_id()}}
+            {% if form.location_id.errors %}
+                <div>{{form.location_id.errors[0]}}</div>
+            {% endif %}
+        </div>
+        <br>
+        <div>
+            <label for="qty">Quantity</label>
+            {{form.qty()}}
+            {% if form.qty.errors %}
+                <div>{{form.qty.errors[0]}}</div>
+            {% endif %}
+        </div>
+        <br>
+        <div>
+            <button type="submit">Submit</button>
+            
+        </div>
+    </form>
+</div>
+</body>
+{% endblock %}

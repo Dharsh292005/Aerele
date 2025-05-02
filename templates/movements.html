@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block content %}
+
+<form method="post">
+    <h2>Product Movements</h2>
+    <label for="product_id">Product:</label>
+    <select name="product_id" required>
+        {% for product in products %}
+            <option value="{{product.id}}"{% if request.form.product_id==product.id|string %}selected{% endif %}>
+                {{product.name}}
+            </option>
+        {% endfor %}
+    </select>
+    <br><br>
+
+    <label for="from_location">From Location (optional):</label>
+    <select name="from_location">
+        <option value="">None</option>
+        {% for location in locations %}
+            <option value="{{location.id}}"{% if request.form.from_location==location.id|string %}selected{% endif %}>
+                {{location.name}}
+            </option>
+        {% endfor %}
+    </select>
+    <br><br>
+
+    <label for="to_location">To Location (optional):</label>
+    <select name="to_location">
+        <option value="">None</option>
+        {% for location in locations %}
+            <option value="{{location.id}}"{% if request.form.to_location==location.id|string %}selected{% endif %}>
+                {{location.name}}
+            </option>
+            
+        {% endfor %}
+    </select>
+    <br><br>
+
+    <label for="qty">Quantity:</label>
+    <input type="number" id="qty" name="qty" required value="{{ request.form.qty or '' }}">
+
+    {% if error_message %}
+        <div style="color:red;margin-top: 5px;">{{error_message}}</div>
+    {% endif %}
+    <br><br>
+
+    <input type="submit"value="Move Product">
+    
+</form>
+{% if error_message %}
+    <div style="color: red; font-weight: bold;">
+        {{error_message}}
+    </div>
+{% endif %}
+<h3>Movement History</h3>
+<table border="1">
+    <thead>
+        <tr>
+            
+            <th>Product ID</th>
+            <th>Product</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Quantity</th>
+            <th>Timestamp</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for move in movements %}
+        <tr>
+            
+            <td>{{move.product_id}}</td>
+            <td>{{move.product_name}}</td>
+            <td>{{move.from_name if move.from_name else 'External'}}</td>
+            <td>{{move.to_name if move.to_name else 'External'}}</td>
+            <td>{{move.quantity}}</td>
+            <td>{{move['timestamp']or'N/A'}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<form method="post" action="{{url_for('delete_movements')}}"onsubmit="return confirm('Are you sure you want to delete all movement history?');">
+    <input type="submit"value="Delete All History">
+</form>
+{% endblock %}
